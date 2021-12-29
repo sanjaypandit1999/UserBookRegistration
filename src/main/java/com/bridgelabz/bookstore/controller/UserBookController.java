@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,10 +37,10 @@ public class UserBookController {
 	}
 	
 	@GetMapping("/verify")
-	public ResponseEntity<ResponseDTO> verifyemail(@RequestParam String token)
+	public ResponseEntity<Boolean> verifyemail(@RequestParam String token)
 	{
 		boolean user = userRegistrationService.verify(token);
-		return new ResponseEntity<ResponseDTO>(new ResponseDTO("user verified", user,201),HttpStatus.ACCEPTED);
+		return new ResponseEntity<Boolean>(user,HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/loginuser")
@@ -97,6 +98,18 @@ public class UserBookController {
 	public ResponseEntity<ResponseDTO> deleteuser(@PathVariable Long id) {
 		ResponseDTO respDTO = userRegistrationService.delete(id);
 		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping("/purchase")
+	public ResponseEntity<ResponseDTO>purchaseBook(@RequestHeader String token){
+		ResponseDTO respDTO = userRegistrationService.purchaseBook(token);
+		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	}
+	@GetMapping("/expiry")
+	public ResponseEntity<ResponseDTO>expiry(@RequestHeader String token){
+		ResponseDTO respDTO = userRegistrationService.expiry(token);
+		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+	
 	}
 
 }

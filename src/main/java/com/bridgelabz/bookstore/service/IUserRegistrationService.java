@@ -35,4 +35,8 @@ public interface IUserRegistrationService {
 
 	boolean verify(String token);
 
+	ResponseDTO purchaseBook(String token);
+
+	ResponseDTO expiry(String token);
+
 }

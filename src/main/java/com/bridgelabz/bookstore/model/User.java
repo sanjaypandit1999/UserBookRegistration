@@ -42,9 +42,9 @@ public class User {
     @Column
     private int otp;
     @Column(name = "purchaseDate")
-    private Date purchaseDate;
+    private LocalDate purchaseDate;
     @Column(name = "expiryDate")
-    private Date expiryDate;
+    private LocalDate expiryDate;
     boolean verifyUser;
     
 
